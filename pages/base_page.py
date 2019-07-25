@@ -1,4 +1,3 @@
-#from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 
 class BasePage(object):
@@ -15,4 +14,4 @@ class BasePage(object):
             self.browser.find_element(search_method, element)
         except (NoSuchElementException):
             return False
-        return True 
+        return True

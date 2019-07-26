@@ -1,5 +1,8 @@
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import math
 
 class BasePage(object):
@@ -17,6 +20,21 @@ class BasePage(object):
         except (NoSuchElementException):
             return False
         return True
+
+    def is_disappeared(self, search_method, element, timeout=4): # wait before element is disappear
+        try:
+            WebDriverWait(self.browser, timeout, 1, TimeoutException).\
+            until_not(EC.presence_of_element_located((search_method, element)))
+        except TimeoutException:
+            return False
+        return True
+
+    def is_not_element_present(self, search_method, element, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((search_method, element)))
+        except TimeoutException:
+            return True
+        return False
 
     # this method solves math problem from browser alert
     # use parameter "?promo=newYear" to see it

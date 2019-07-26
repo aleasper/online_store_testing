@@ -12,22 +12,9 @@ class BasePage(object):
         self.browser.implicitly_wait(timeout)
         self.url = url
 
-    def open(self):
-        self.browser.get(self.url)
-
     def go_to_login_page(self):
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
-
-    def should_be_login_link(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link isn't presented"
-
-    def is_element_present(self, search_method, element):
-        try:
-            self.browser.find_element(search_method, element)
-        except (NoSuchElementException):
-            return False
-        return True
 
     def is_disappeared(self, search_method, element, timeout=4): # wait before element is disappear
         try:
@@ -37,12 +24,26 @@ class BasePage(object):
             return False
         return True
 
+    def is_element_present(self, search_method, element):
+        try:
+            self.browser.find_element(search_method, element)
+        except (NoSuchElementException):
+            return False
+        return True
+
     def is_not_element_present(self, search_method, element, timeout=4):
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((search_method, element)))
         except TimeoutException:
             return True
         return False
+
+    def open(self):
+        self.browser.get(self.url)
+
+    def should_be_login_link(self):
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link isn't presented"
+
 
     # this method solves math problem from browser alert
     # use parameter "?promo=newYear" to see it

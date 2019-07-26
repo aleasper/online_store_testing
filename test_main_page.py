@@ -20,7 +20,7 @@ class TestLoginFromMainPage(object):
         new_page = LoginPage(page.browser, browser.current_url)
         new_page.should_be_login_page()
 
-
+@pytest.mark.guest_negative
 def test_guest_cant_see_product_in_cart_opened_from_main_page(browser):
     link = "http://selenium1py.pythonanywhere.com"
     page = MainPage(browser, link) # initialization Page Object of main page
@@ -29,10 +29,4 @@ def test_guest_cant_see_product_in_cart_opened_from_main_page(browser):
 
     new_page = CartPage(page.browser, browser.current_url)
     new_page.should_not_be_sth_in_cart()
-    new_page.should_be_text_empty_cart() # works only wiwth en-gb language
-
-    '''
-    import random
-    random.seed()
-    fake_email = 'fake{}@fmail.com'.format(str(int(random.random()*1000)))
-    '''
+    new_page.should_be_text_empty_cart() # works only with en-gb language

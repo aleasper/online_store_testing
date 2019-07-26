@@ -7,7 +7,10 @@ This tests covers:
 - Viewing and checking login\registration buttons
 - Checking ability to register user
 
-To start testing install all required packages: <pip install -r requirements.txt>  
-To start review: <pytest -v --tb=line --language=en -m need_review>  
-To start any test file use <pytest test_file.py>  
+To start testing install all required packages:
+    pip install -r requirements.txt  
+To start review:
+    pytest -v --tb=line --language=en -m need_review  
+To start any test file use
+    pytest test_file.py    
 More information about PyTest:  https://docs.pytest.org/en/latest/contents.html#toc  
